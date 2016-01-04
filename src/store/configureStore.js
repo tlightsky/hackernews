@@ -1,25 +1,28 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger';
-import { createHistory, createHashHistory } from 'history';
+import { createHashHistory, createMemoryHistory } from 'history';
 import { reduxReactRouter } from 'redux-router';
 import { batchedUpdatesMiddleware } from './batchedUpdatesMiddleware';
 import { Iterable } from 'immutable';
 import _ from 'lodash';
 import reducer from '../reducers'
+import logger from './logger';
 
-const logger = createLogger({
-  level: 'info',
-  collapsed: true,
-  stateTransformer: state => _.mapValues(state, v => Iterable.isIterable(v) ? v.toJS() : v),
-  predicate: (getState, action) => {
-      return true;
-  },
-});
+var history; // for testing
+var middlewares = [thunk,batchedUpdatesMiddleware];
+if (typeof(window) !== 'undefined'){
+    history = _.partial(createHashHistory, { queryKey: false });
+    middlewares.push(logger);
+}
+else {
+    history = createMemoryHistory; //This kind of history is needed for server-side rendering.
+}
+
+middlewares = applyMiddleware.apply(null, middlewares);
 
 const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk,logger,batchedUpdatesMiddleware),
-  reduxReactRouter({ createHistory: _.partial(createHashHistory, { queryKey: false }) })
+  middlewares,
+  reduxReactRouter({ createHistory: history })
 )(createStore);
 
 export default function configureStore(initialState) {
