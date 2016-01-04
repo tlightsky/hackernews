@@ -1,4 +1,5 @@
 import createLogger from 'redux-logger';
+import { Iterable } from 'immutable';
 
 export default createLogger({
   level: 'info',

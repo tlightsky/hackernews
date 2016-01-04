@@ -3,7 +3,6 @@ import thunk from 'redux-thunk'
 import { createHashHistory, createMemoryHistory } from 'history';
 import { reduxReactRouter } from 'redux-router';
 import { batchedUpdatesMiddleware } from './batchedUpdatesMiddleware';
-import { Iterable } from 'immutable';
 import _ from 'lodash';
 import reducer from '../reducers'
 import logger from './logger';
