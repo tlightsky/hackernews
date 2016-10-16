@@ -36,7 +36,7 @@ class StoryItem extends Component {
   renderItemMeta(item) {
     var itemDate = new Date(item.get('time') * 1000)
 
-    if (item.type === 'job') {
+    if (item.get('type') === 'job') {
       return (<div className="Item__meta">
         <TimeAgo date={itemDate} className="Item__time"/>
       </div>);
@@ -44,10 +44,10 @@ class StoryItem extends Component {
 
     return (<div className="Item__meta">
       <span className="Item__score">
-        {item.score} point{pluralise(item.score)}
+        {item.get('score')} point{pluralise(item.get('score'))}
       </span>{' '}
       <span className="Item__by">
-        by <Link to={`/user/${item.by}`}>{item.by}</Link>
+        by <Link to={`/user/${item.get('by')}`}>{item.get('by')}</Link>
       </span>{' '}
       <TimeAgo date={itemDate} className="Item__time"/>
       {' | '}
