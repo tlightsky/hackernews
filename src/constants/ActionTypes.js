@@ -1,8 +1,9 @@
 import keyMirror from 'keyMirror';
 
 export default {
-  counter: keyMirror({
-    increment: null,
-    decrement: null,
+  app: keyMirror({
+    update: null,
+    item: null,
+    increaseCount: null,
   }),
 };
