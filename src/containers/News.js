@@ -6,7 +6,7 @@ import constants from '../constants/ActionTypes';
 
 function mapStateToProps(state) {
   return {
-    topstories: state.app.get("topstories"),
+    topstories: state.app.get('topstories'),
     items: state.app.get('items'),
     count: state.app.get('count')
   }

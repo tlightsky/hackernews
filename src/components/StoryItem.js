@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import constants from '../constants/ActionTypes';
 import Link from 'react-router/lib/Link';
+import Loading from 'react-loading';
 
 import TimeAgo from 'react-timeago';
 import urlParse from 'url-parse';
@@ -47,14 +48,12 @@ class StoryItem extends Component {
         {item.get('score')} point{pluralise(item.get('score'))}
       </span>{' '}
       <span className="Item__by">
-        by <Link to={`/user/${item.get('by')}`}>{item.get('by')}</Link>
+        by {item.get('by')}
       </span>{' '}
       <TimeAgo date={itemDate} className="Item__time"/>
       {' | '}
         {item.get('descendants') > 0 ? item.get('descendants') + ' comment' + pluralise(item.get('descendants')) : 'discuss'}
     </div>);
-    // <Link to={`/${item.get('type')}/${item.get('id')}`}>
-    // </Link>
   }
 
   renderItemTitle(item) {
@@ -72,7 +71,7 @@ class StoryItem extends Component {
     const { id, item } = this.props;
     return (
       <li className={'ListItem'} style={{marginBottom: 16}}>
-      {item ? this.renderItemTitle(item) : 'Loading'}
+      {item ? this.renderItemTitle(item) : <Loading type='cylon' color='#000' delay={0} height={18} />}
       {item ? this.renderItemMeta(item) : null}
       </li>
     );

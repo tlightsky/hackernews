@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import constants from '../constants/ActionTypes';
 import StoryItem from './StoryItem';
+import Loading from 'react-loading';
 
 class News extends Component {
   static propTypes = {
@@ -15,7 +16,7 @@ class News extends Component {
   componentDidMount() {
     const { actions } = this.props;
     actions.startScrollDetection();
-    actions.start("topstories");
+    actions.start('topstories');
   }
 
   handleHome() {
@@ -36,7 +37,18 @@ class News extends Component {
     const { topstories } = this.props;
     // console.log(topstories);
     if(!topstories || topstories.length == 0) {
-      return (<div>Loading...</div>);
+      return (
+        <div className={'App__content'}>
+         <div className={'App__header'}>
+           Hackernews with firebase and react(redux+immutable)
+         </div>
+         <div className={'Items'}>
+           <Loading type='cylon' color='#000' delay={0} height={18} />
+         </div>
+         <div className={'App__footer'}>
+           by TLightSky
+         </div>
+        </div>);
     }
 
     return (
@@ -45,7 +57,7 @@ class News extends Component {
          Hackernews with firebase and react(redux+immutable)
        </div>
        <div className={'Items'}>
-         <ol className="Items__list">
+         <ol className='Items__list'>
            {this.renderItems(topstories)}
          </ol>
        </div>

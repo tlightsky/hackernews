@@ -7,41 +7,29 @@ import { shallow,
   spyLifecycle,
   render } from 'enzyme';
 import assert from 'assert';
-import Counter from '../src/containers/Counter';
+import News from '../src/containers/News';
 import configureStore from '../src/store/configureStore';
+import Loading from 'react-loading';
 
 const store = configureStore();
 
-describe('<Counter />', () => {
+describe('<News />', () => {
 
-  it(`should render <Counter></Counter> component`, ()=> {
-    const wrapper = shallow(<Counter store={store} params={{domain: 'test'}} />);
-    assert(wrapper.instance() instanceof Counter);
+  it(`should render <News></News> component`, ()=> {
+    const wrapper = shallow(<News store={store} params={{domain: '/'}} />);
+    assert(wrapper.instance() instanceof News);
     assert(wrapper.length === 1);
   });
 
   it(`should render props`, () => {
-    const wrapper = shallow(<Counter store={store} params={{domain: 'test'}} />);
+    const wrapper = shallow(<News store={store} params={{domain: '/'}} />);
     assert(wrapper.prop(`store`) === store);
-    assert(wrapper.prop(`params`).domain === 'test');
+    assert(wrapper.prop(`params`).domain === '/');
   });
 
-  it(`should render incremented and decremented count`, ()=> {
+  it(`should render Loading`, ()=> {
     var wrapper;
-    wrapper = shallow(<Counter store={store} params={{domain: 'test'}} />);
-    assert(wrapper.props().counter.get('test') === undefined);
-
-    wrapper.props().actions.increment('test');
-    wrapper = shallow(<Counter store={store} params={{domain: 'test'}} />);
-    assert(wrapper.props().counter.get('test') === 1);
-
-    wrapper.props().actions.decrement('test');
-    wrapper = shallow(<Counter store={store} params={{domain: 'test'}} />);
-    assert(wrapper.props().counter.get('test') === 0);
-  });
-
-  it(`should render action buttons`, ()=> {
-    const wrapper = render(<Counter store={store} params={{domain: 'test'}} />);
-    assert(wrapper.find('button').length === 3);
+    wrapper = render(<News store={store} params={{domain: '/'}} />);
+    assert(wrapper.find('svg').length == 1);
   });
 });

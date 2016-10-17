@@ -14,7 +14,7 @@ export function update(path, lists) {
 }
 
 export function start(path) {
-  console.log("start:"+path);
+  console.log('start:'+path);
   return dispatch => {
     api.child(path).on('value', lists => {
       dispatch(update(path, lists.val()));
@@ -32,7 +32,7 @@ export function updateItem(id, item) {
 }
 
 export function startItem(id) {
-  console.log("start:"+id);
+  console.log('start:'+id);
   return dispatch => {
     api.child('item/'+id).on('value', item => {
       dispatch(updateItem(id, item.val()));
@@ -48,7 +48,7 @@ export function startScrollDetection() {
       }
       window.onscroll = event => {
         if (isEndOfElement(doc.body)){
-          console.log("END!");
+          console.log('END!');
           dispatch({type: constants.app.increaseCount});
         }
       };
